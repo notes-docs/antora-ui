@@ -200,11 +200,6 @@ Development of Antora is led and sponsored by {url-opendevise}[OpenDevise Inc].
 1. 添加 全文检索
 2. 添加 图片放大
 
-== 操作
-
-1. 需要关闭 gulpfile.js 中 lintJsTask。
-2. 然后 npx gulp bundle 进行打包。
-
 == 参考
 
 * https://gitlab.com/antora/antora.org/-/issues/20

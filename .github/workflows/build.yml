@@ -1,0 +1,44 @@
+name: Build and Package
+# 触发工作流的事件
+on:
+  push:
+    branches: [master]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions
+permissions:
+  contents: read
+
+env:
+  GIT_CREDENTIALS: https://${{ secrets.PAGE_TOKEN }}:@github.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 选择运行环境
+    steps:
+      - name: List Environment Variables
+        run: env
+
+      # 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 设置 Node.js 环境
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 运行构建命令（根据你的项目修改）
+      - name: Generate Site
+        run: npm run build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: build/
