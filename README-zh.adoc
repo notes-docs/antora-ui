@@ -1,0 +1,210 @@
+= Antora 默认 UI
+// Settings:
+:experimental:
+:hide-uri-scheme:
+// Project URLs:
+:url-project: https://gitlab.com/antora/antora-ui-default
+:url-preview: https://antora.gitlab.io/antora-ui-default
+:url-ci-pipelines: {url-project}/pipelines
+:img-ci-status: {url-project}/badges/master/pipeline.svg
+// External URLs:
+:url-antora: https://antora.org
+:url-antora-docs: https://docs.antora.org
+:url-git: https://git-scm.com
+:url-git-dl: {url-git}/downloads
+:url-gulp: http://gulpjs.com
+:url-opendevise: https://opendevise.com
+:url-nodejs: https://nodejs.org
+:url-nvm: https://github.com/creationix/nvm
+:url-nvm-install: {url-nvm}#installation
+:url-source-maps: https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Use_a_source_map
+
+image:{img-ci-status}[CI Status (GitLab CI), link={url-ci-pipelines}]
+
+这个项目是一个原型，演示了如何生成一个 UI 包，以便 {url-antora}[Antora] 使用该包生成文档站点。你可以在 {url-preview} 查看默认 UI 的预览。
+
+虽然默认 UI 已经准备好可以用于 Antora，但其目的是让你 fork （分叉）它并根据自己的需求进行定制。它故意保持最小化，以便在不需要太多定制工作的情况下为你提供一个良好的起点。
+
+== 行为规范
+
+Antora 项目及其相关空间遵循我们的 https://gitlab.com/antora/antora/-/blob/master/CODE-OF-CONDUCT.adoc[行为规范]。通过参与，你同意遵守此规范。让我们一起努力，确保这是一个欢迎、专业、包容和安全的环境。
+
+== 使用默认 UI
+
+如果你只是想使用 Antora 生成站点的默认 UI，可以在你的 playbook 中添加以下 UI 配置：
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+----
+
+NOTE: `snapshot` 标志告诉 Antora 当 `--fetch` 命令行标志存在时，去获取 UI。此设置是必需的，因为 UI 包的更新会推送到相同的 URL。如果 URL 是唯一的，这个设置将不会被要求。
+
+继续阅读以了解如何定制默认 UI 以适应你的文档需求。
+
+== 开发快速入门
+
+本部分提供了一个基本教程，教你如何设置默认 UI 项目，在本地预览它，并将其打包供 Antora 使用。更详细的教程可以在 {url-antora-docs} 找到。
+
+=== 前提条件
+
+要预览和打包默认 UI，你需要在计算机上安装以下软件：
+
+* {url-git}[git] (命令: `git`)
+* {url-nodejs}[Node.js] (命令: `node` and `npm`)
+* {url-gulp}[Gulp CLI] (命令: `gulp`)
+
+==== git
+
+首先，确保你已安装 git。
+
+ $ git --version
+
+如果没有安装 `git`，请 {url-git-dl}[下载并安装] 适合你系统的 `git` 包。
+
+==== Node.js
+
+接下来，确保你已安装 Node.js（它也会提供 npm）。
+
+ $ node --version
+
+如果这条命令失败，说明没有安装 Node.js。如果没有报告 LTS 版本的 Node.js（例如 v10.15.3），说明你没有安装合适的版本。此指南建议安装 Node.js 10。
+
+虽然你可以从官方包中安装 Node.js，但我们强烈建议你使用 {url-nvm}[nvm]（Node 版本管理器）来管理你的 Node.js 安装。按照 {url-nvm-install}[nvm 的安装说明] 在你的机器上设置 nvm。
+
+安装 nvm 后，打开一个新的终端，使用以下命令安装 Node.js 10：
+
+ $ nvm install 10
+
+你可以随时使用以下命令切换到这个版本：
+
+ $ nvm use 10
+
+要将 Node.js 10 设置为新终端的默认版本，运行：
+
+ $ nvm alias default 10
+
+现在你已经安装了 Node.js，可以继续安装 Gulp CLI。
+
+==== Gulp CLI
+
+你需要安装 Gulp 命令行界面（CLI）来运行构建。Gulp CLI 包提供了 `gulp` 命令，它会执行项目中声明的 Gulp 版本。
+
+你可以全局安装 Gulp CLI（如果你使用 nvm，它会安装到用户目录的位置）：
+
+ $ npm install -g gulp-cli
+
+通过运行以下命令来验证 Gulp CLI 是否已正确安装并在 PATH 中：
+
+ $ gulp --version
+
+如果你更喜欢使用 Yarn 安装全局包，可以运行以下命令：
+
+ $ yarn global add gulp-cli
+
+另外，你也可以使用项目依赖中安装的 `gulp` 命令：
+
+ $ $(npm bin)/gulp --version
+
+现在你已经安装了所需的前提条件，可以获取并构建 UI 项目。
+
+=== 克隆并初始化 UI 项目
+
+使用 git 克隆默认 UI 项目：
+
+[subs=attributes+]
+ $ git clone {url-project} &&
+   cd "`basename $_`"
+
+上面的命令克隆了 Antora 的默认 UI 项目，并切换到项目文件夹。在执行后续命令时，请保持在此项目文件夹中。
+
+使用 npm 安装项目的依赖项。在终端中执行以下命令：
+
+ $ npm install
+
+此命令将会把 [.path]_package.json_ 中列出的依赖安装到 [.path]_node_modules/_ 文件夹中。这个文件夹不会包含在 UI 包中，也 *不* 应提交到源代码控制仓库中。
+
+[TIP]
+====
+如果你更喜欢使用 Yarn 安装包，可以运行：
+
+ $ yarn
+====
+
+=== 预览 UI
+
+默认 UI 项目已配置为离线预览。[.path]_preview-src/_ 文件夹中的文件提供了示例内容，允许你查看 UI 的实际效果。在此文件夹中，你将主要找到用 AsciiDoc 编写的页面。这些页面提供了来自真实站点的内容样本。
+
+要构建 UI 并在本地 Web 服务器上预览它，运行以下命令：
+
+ $ gulp preview
+
+你会在输出中看到一个 URL：
+
+....
+[12:00:00] Starting server...
+[12:00:00] Server started http://localhost:5252
+[12:00:00] Running server
+....
+
+访问该 URL 即可本地预览站点。
+
+在此命令运行时，你对源文件的任何更改都会立即反映到浏览器中。这是通过监控项目文件变化来实现的，检测到变化后会执行 `preview:build` 任务，并将更新推送到浏览器。
+
+按 kbd:[Ctrl+C] 停止预览服务器并结束持续构建。
+
+=== 打包用于 Antora
+
+如果你需要将 UI 打包以便在本地生成文档站点，请运行以下命令：
+
+ $ gulp bundle
+
+如果 lint 检查报告错误，你需要修复这些错误。
+
+当命令成功完成后，UI 包将位于 [.path]_build/ui-bundle.zip_。你可以通过 `--ui-bundle-url` 命令行选项将 Antora 指向此包。
+
+如果你在运行预览，并且希望在不破坏预览的情况下打包，可以使用：
+
+ $ gulp bundle:pack
+
+UI 包将再次保存在 [.path]_build/ui-bundle.zip_。
+
+==== Source Maps
+
+构建过程会将所有的 CSS 和客户端 JavaScript 合并为 site.css 和 site.js，以减少包的大小。源映射将这些合并后的文件与它们的原始源文件相关联。
+
+这种 “源映射” 是通过生成额外的映射文件来实现的，这些文件与合并后的文件一起存放在构建文件夹中。映射文件允许调试器显示原始源代码，而不是混淆过的文件，这是调试的重要工具。
+
+在预览模式下，源映射会自动启用，因此你不需要做任何额外的配置。如果你希望在打包时包含源映射，可以在运行打包命令时设置 `SOURCEMAPS` 环境变量为 `true`：
+
+ $ SOURCEMAPS=true gulp bundle
+
+在这种情况下，打包文件将包括源映射，可以用于调试生产站点。
+
+== Copyright and License
+
+Copyright (C) 2017-present OpenDevise Inc. and the Antora Project.
+
+Use of this software is granted under the terms of the https://www.mozilla.org/en-US/MPL/2.0/[Mozilla Public License Version 2.0] (MPL-2.0).
+See link:LICENSE[] to find the full license text.
+
+== Authors
+
+Development of Antora is led and sponsored by {url-opendevise}[OpenDevise Inc].
+
+== 补充
+
+1. 添加 全文检索
+2. 添加 图片放大
+
+== 操作
+
+1. 需要关闭 gulpfile.js 中 lintJsTask。
+2. 然后 npx gulp bundle 进行打包。
+
+== 参考
+
+* https://gitlab.com/antora/antora.org/-/issues/20

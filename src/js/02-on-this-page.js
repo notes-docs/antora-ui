@@ -1,12 +1,19 @@
+// 这段代码实现了一个侧边目录（TOC，Table of Contents），用于展示文章中的标题结构并在用户滚动页面时更新高亮当前活动的目录项
+
 ;(function () {
   'use strict'
 
+  // 1. 初始化侧边目录
   var sidebar = document.querySelector('aside.toc.sidebar')
+  // 如果页面中存在 aside.toc.sidebar 元素（即侧边目录容器），则初始化目录
   if (!sidebar) return
   if (document.querySelector('body.-toc')) return sidebar.parentNode.removeChild(sidebar)
+  // 获取 data-levels 属性定义的标题级数，默认为 2（即支持 H1, H2, H3 的目录）
   var levels = parseInt(sidebar.dataset.levels || 2, 10)
   if (levels < 0) return
 
+  // 选择 article.doc 元素作为文章主体，获取对应的标题元素（h1 到 h3）
+  // 2. 构建目录列表
   var articleSelector = 'article.doc'
   var article = document.querySelector(articleSelector)
   var headingsSelector = []
@@ -36,6 +43,7 @@
     return accum
   }, document.createElement('ul'))
 
+  // 3. 创建目录菜单
   var menu = sidebar.querySelector('.toc-menu')
   if (!menu) (menu = document.createElement('div')).className = 'toc-menu'
 
@@ -52,6 +60,7 @@
     startOfContent.parentNode.insertBefore(embeddedToc, startOfContent)
   }
 
+  // 4. 滚动事件
   window.addEventListener('load', function () {
     onScroll()
     window.addEventListener('scroll', onScroll)

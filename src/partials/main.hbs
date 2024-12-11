@@ -1,11 +1,19 @@
 <main class="article">
-{{> toolbar}}
-  <div class="content">
-{{#if (eq page.layout '404')}}
-{{> article-404}}
-{{else}}
-{{> toc}}
-{{> article}}
-{{/if}}
+
+  {{#unless (eq page.component.name 'home')}}
+    {{> toolbar}}
+  {{/unless}}
+
+  <div class="content" style="{{#if (eq page.component.name 'home')}} justify-content: center; {{/if}}">
+    {{#if (eq page.layout '404')}}
+      {{> article-404}}
+    {{else}}
+
+      {{#unless (eq page.component.name 'home')}}
+      {{> toc}}
+      {{/unless}}
+
+      {{> article}}
+    {{/if}}
   </div>
 </main>

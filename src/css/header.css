@@ -93,7 +93,7 @@ body {
 
 .navbar-item,
 .navbar-link {
-  color: var(--navbar-menu-font-color);
+  color: var(--color-white); /* --navbar-menu-font-color */
   display: block;
   line-height: var(--doc-line-height);
   padding: 0.5rem 1rem;
