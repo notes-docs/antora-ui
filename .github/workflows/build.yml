@@ -1,8 +1,9 @@
-name: Build and Package
+name: Build and Release
 # 触发工作流的事件
 on:
   push:
-    branches: [master, main]
+    tags:
+      - 'v*'  # 仅当推送以 v 开头的标签时触发
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -36,11 +37,15 @@ jobs:
 
       # 运行构建命令（根据你的项目修改）
       - name: Generate Site
-        run: npm run build
+        run: npm run pack
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+#      - name: Upload Artifacts
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: ui-bundle
+#          path: public/_/
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ui-bundle
-          path: public/_/
-          compression-level: 0
+          files: build/*  # 要上传的文件路径，这里是构建后的文件
+          token: ${{ secrets.PAGE_TOKEN }}  # 使用 GitHub Token 来创建 Release
