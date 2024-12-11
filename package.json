@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "dev": "gulp preview",
-    "build": "gulp bundle"
+    "pack": "gulp bundle",
+    "build": "gulp build"
   },
   "devDependencies": {
     "asciidoctor.js": "1.5.9",
