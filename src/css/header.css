@@ -301,13 +301,6 @@ body {
   }
 }
 
-#search {
-  border: gray 1.5px solid;
-  border-radius: 0.5rem;
-  padding: 0 0.5rem 0 0;
-  display: flex;
-}
-
 #search .query {
   display: inline-block;
   width: 190px;
