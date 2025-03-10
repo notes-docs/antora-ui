@@ -301,6 +301,13 @@ body {
   }
 }
 
+#search {
+  /* border: gray 1.5px solid; */
+  /* border-radius: 0.5rem; */
+  padding: 0 0.5rem 0 0;
+  display: flex !important;
+}
+
 #search .query {
   display: inline-block;
   width: 190px;
@@ -333,6 +340,7 @@ body {
 
 #search label {
   font-size: 14px;
+  color: var(--navbar-font-color) !important;
 }
 
 .filter,
