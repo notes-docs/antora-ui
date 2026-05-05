@@ -3,7 +3,7 @@
 }
 
 .docs-main-inner {
-  width: min(100%, 52rem);
+  width: min(100%, var(--doc-max-width--desktop));
   padding-block: calc(var(--spacing) * 10) calc(var(--spacing) * 16);
 }
 
