@@ -1,19 +1,18 @@
-<main class="article">
-
-  {{#unless (eq page.component.name 'home')}}
-    {{> toolbar}}
-  {{/unless}}
-
-  <div class="content" style="{{#if (eq page.component.name 'home')}} justify-content: center; {{/if}}">
+<main class="docs-main{{#if (eq page.layout '404')}} is-not-found{{/if}}">
+  <div class="docs-main-inner">
+    {{#unless (eq page.layout '404')}}
+      {{> breadcrumbs}}
+    {{/unless}}
     {{#if (eq page.layout '404')}}
       {{> article-404}}
     {{else}}
-
-      {{#unless (eq page.component.name 'home')}}
-      {{> toc}}
-      {{/unless}}
-
       {{> article}}
+      {{> pagination}}
     {{/if}}
   </div>
+  {{#unless (eq page.layout '404')}}
+    <aside class="docs-toc">
+      {{> toc}}
+    </aside>
+  {{/unless}}
 </main>

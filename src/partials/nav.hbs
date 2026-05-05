@@ -1,13 +1,11 @@
-<div class="nav-container"{{#if page.component}}
-     data-component="{{page.component.name}}" data-version="{{page.version}}"{{/if}}>
-  <aside class="nav">
-    <div class="panels">
-      {{> page-versions}}
+<div class="sidebar-panel nav"{{#if page.component}} data-component="{{page.component.name}}" data-version="{{page.version}}"{{/if}}>
+  <div class="sidebar-border-gradient"></div>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-fade-top"></div>
+  <div class="container-sidebar">
+    <div class="sidebar-entries">
       {{> nav-menu}}
-      {{#if (or (eq page.attributes.role "home") (eq page.layout "404"))}}
-        {{> nav-explore}}
-      {{/if}}
-<!--      {{> nav-explore-hidden}}-->
     </div>
-  </aside>
+    <div class="sidebar-fade-bottom"></div>
+  </div>
 </div>

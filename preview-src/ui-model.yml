@@ -1,126 +1,112 @@
-antoraVersion: '1.0.0'
+antoraVersion: '3.1.0'
 site:
   url: http://localhost:5252
-  title: Brand Docs
-  homeUrl: &home_url /xyz/5.2/index.html
+  title: Lucode Docs
+  homeUrl: &home_url /lucode/0.1/index.html
   components:
-  - name: abc
-    title: Project ABC
-    url: '#'
+  - name: guides
+    title: Guides
+    url: /guides/0.1/index.html
     versions:
-    - &latest_version_abc
-      url: '#'
-      version: '1.1'
-      displayVersion: '1.1'
-    - url: '#'
-      version: '1.0'
-      displayVersion: '1.0'
-    latestVersion: *latest_version_abc
+    - &latest_version_guides
+      url: /guides/0.1/index.html
+      version: '0.1'
+      displayVersion: '0.1'
+    latestVersion: *latest_version_guides
   - &component
-    name: xyz
-    title: &component_title TigerGraph Graph Data Science Library
-    url: /xyz/6.0/index.html
+    name: lucode
+    title: &component_title Lucode Antora UI
+    url: /lucode/0.1/index.html
     versions:
-    - &latest_version_xyz
-      url: /xyz/6.0/index.html
-      version: '6.0'
-      displayVersion: '6.0'
+    - &latest_version_lucode
+      url: /lucode/0.1/index.html
+      version: '0.1'
+      displayVersion: '0.1'
     - &component_version
       title: *component_title
-      url: '#'
-      version: '5.2'
-      displayVersion: '5.2'
-    - url: '#'
-      version: '5.1'
-      displayVersion: '5.1'
-    - url: '#'
-      version: '5.0'
-      displayVersion: '5.0'
-    latestVersion: *latest_version_xyz
-  - name: '123'
-    title: Project 123
-    url: '#'
+      url: /lucode/0.1/index.html
+      version: '0.1'
+      displayVersion: '0.1'
+    latestVersion: *latest_version_lucode
+  - name: reference
+    title: Reference
+    url: /reference/0.1/index.html
     versions:
-    - &latest_version_123
-      url: '#'
-      version: '2.2'
-      displayVersion: '2.2'
-    - url: '#'
-      version: '2.1'
-      displayVersion: '2.1'
-    - url: '#'
-      version: '2.0'
-      displayVersion: '2.0'
-    latestVersion: *latest_version_123
+    - &latest_version_reference
+      url: /reference/0.1/index.html
+      version: '0.1'
+      displayVersion: '0.1'
+    latestVersion: *latest_version_reference
 page:
   url: *home_url
   home: true
-  title: Brand&#8217;s Hardware &amp; Software Requirements
+  title: Lucode Antora UI
   component: *component
   componentVersion: *component_version
-  version: '5.2'
-  displayVersion: '5.2'
+  version: '0.1'
+  displayVersion: '0.1'
   module: ROOT
   relativeSrcPath: index.adoc
-  editUrl: http://example.com/project-xyz/blob/master/index.adoc
+  editUrl: http://example.com/lucode-antora-ui/blob/main/preview-src/index.adoc
   origin:
     private: false
   previous:
-    content: Quickstart
+    content: Getting Started
     url: '#'
-    urlType: 'internal'
+    urlType: internal
   next:
-    content: Liber Recusabo
-    url: '#'
-    urlType: 'internal'
-  breadcrumbs:
-  - content: Quickstart
-    url: '#'
+    content: Theme Highlights
+    url: '#theme-highlights'
     urlType: fragment
-  - content: Brand&#8217;s Hardware &amp; Software Requirements
-    url: /xyz/5.2/index.html
+  breadcrumbs:
+  - content: Guides
+    url: '#'
+    urlType: internal
+  - content: Lucode Antora UI
+    url: /lucode/0.1/index.html
     urlType: internal
   versions:
-  - version: '6.0'
-    displayVersion: '6.0'
-    url: '#'
-  - version: '5.2'
-    displayVersion: '5.2'
-    url: '#'
-  - version: '5.1'
-    displayVersion: '5.1'
-    url: '#'
-  - version: '5.0'
-    displayVersion: '5.0'
-    missing: true
+  - version: '0.1'
+    displayVersion: '0.1'
     url: '#'
   navigation:
   - root: true
     items:
-    - content: Quickstart
-      url: '#'
-      urlType: fragment
+    - content: Overview
+      url: /lucode/0.1/index.html
+      urlType: internal
       items:
-      - content: Brand&#8217;s Hardware &amp; Software Requirements
-        url: /xyz/5.2/index.html
+      - content: What This Theme Changes
+        url: '/lucode/0.1/index.html#what-this-theme-changes'
         urlType: internal
-      - content: Cu Solet
-        url: '/xyz/5.2/index.html#cu-solet'
+      - content: Theme Highlights
+        url: '/lucode/0.1/index.html#theme-highlights'
         urlType: internal
-      - content: English + 中文
-        url: '/xyz/5.2/index.html#english+中文'
+      - content: Token Examples
+        url: '/lucode/0.1/index.html#token-examples'
         urlType: internal
-    - content: Liber Recusabo
-      url: '#liber-recusabo'
-      urlType: fragment
+      - content: Content Styling
+        url: '/lucode/0.1/index.html#content-styling'
+        urlType: internal
+      - content: Tables
+        url: '/lucode/0.1/index.html#tables'
+        urlType: internal
+      - content: Next Steps
+        url: '/lucode/0.1/index.html#next-steps'
+        urlType: internal
+    - content: Guides
+      items:
+      - content: Getting Started
+        url: '#'
+        urlType: internal
+      - content: Theming
+        url: '#'
+        urlType: internal
     - content: Reference
       items:
-      - content: Keyboard Shortcuts
+      - content: Templates
         url: '#'
-        urlType: fragment
-      - content: Importing and Exporting
+        urlType: internal
+      - content: Tokens
         url: '#'
-        urlType: fragment
-      - content: Some Code
-        url: '/xyz/5.2/index.html#some-code'
         urlType: internal

@@ -1,7 +1,20 @@
 <article class="doc">
-  {{#with page.title}}
-    <h1 class="page">{{{this}}}</h1>
-  {{/with}}
+  <header class="doc-article-header">
+    <div class="doc-kicker-row">
+      {{#if page.componentVersion}}
+        <span class="doc-kicker">{{page.componentVersion.title}}</span>
+        {{#if page.componentVersion.displayVersion}}
+          <span class="doc-kicker-separator">/</span>
+          <span class="doc-kicker">{{page.componentVersion.displayVersion}}</span>
+        {{/if}}
+      {{/if}}
+    </div>
+    {{#with page.title}}
+      <h1 class="page">{{{this}}}</h1>
+    {{/with}}
+    {{#with page.attributes.description}}
+      <p class="doc-lede">{{this}}</p>
+    {{/with}}
+  </header>
   {{{page.contents}}}
-  {{> pagination}}
 </article>

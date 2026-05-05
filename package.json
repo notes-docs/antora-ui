@@ -16,7 +16,8 @@
   "scripts": {
     "dev": "gulp preview",
     "pack": "gulp bundle",
-    "build": "gulp build"
+    "build": "gulp build",
+    "test": "node --test ./tests/*.test.mjs"
   },
   "devDependencies": {
     "asciidoctor.js": "1.5.9",

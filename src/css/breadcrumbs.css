@@ -1,38 +1,21 @@
 .breadcrumbs {
-  display: none;
-  flex: 1 1;
-  padding: 0 0.5rem 0 0.75rem;
-  line-height: var(--nav-line-height);
+  margin-bottom: calc(var(--spacing) * 6);
 }
 
-@media screen and (min-width: 1024px) {
-  .breadcrumbs {
-    display: block;
-  }
-}
-
-a + .breadcrumbs {
-  padding-left: 0.05rem;
-}
-
-.breadcrumbs ul {
+.breadcrumbs ul,
+.breadcrumbs ol {
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
+  gap: 0.4rem;
   padding: 0;
-  list-style: none;
-}
-
-.breadcrumbs li {
-  display: inline;
   margin: 0;
+  list-style: none;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
 }
 
-.breadcrumbs li::after {
+.breadcrumbs li + li::before {
   content: "/";
-  padding: 0 0.5rem;
-}
-
-.breadcrumbs li:last-of-type::after {
-  content: none;
+  margin-right: 0.4rem;
+  color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
 }

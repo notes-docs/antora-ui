@@ -1,5 +1,62 @@
+.body {
+  width: 100%;
+}
+
+.site-shell {
+  display: block;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding-inline: calc(var(--spacing) * 6);
+}
+
+.docs-sidebar,
+.docs-toc {
+  display: none;
+}
+
 @media screen and (min-width: 1024px) {
-  .body {
-    display: flex;
+  .site-shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .docs-sidebar {
+    display: block;
+    position: sticky;
+    top: calc(var(--header-height) + 1px);
+    height: calc(100vh - var(--header-height) - 1px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .site-shell {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--toc-width);
+  }
+
+  .docs-toc {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1023.5px) {
+  .nav-container {
+    display: none;
+  }
+
+  .nav-container.is-active {
+    display: block;
+    position: fixed;
+    inset: var(--header-height) 0 0 0;
+    z-index: 45;
+    background: color-mix(in oklab, var(--background) 96%, transparent);
+    backdrop-filter: blur(16px);
+    padding-inline: calc(var(--spacing) * 6);
+  }
+
+  .nav-container.is-active .sidebar-panel {
+    max-width: 26rem;
+    height: calc(100vh - var(--header-height));
   }
 }
