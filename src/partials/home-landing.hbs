@@ -9,33 +9,27 @@
     {{/with}}
   </header>
 
-  {{#with (booksHomeSections page.navigation)}}
-    <div class="books-home-sections">
+  {{#with (booksHomeSections site.components)}}
+    <div class="books-home-summary">
+      <h2 class="books-home-summary-title">全部手册</h2>
+      <span class="books-home-summary-count">{{this.length}} 本</span>
+    </div>
+    <div class="books-grid">
       {{#each this}}
-        <section class="books-section" id="{{anchor}}">
-          <div class="books-section-header">
-            <h2 class="books-section-title">{{title}}</h2>
-            <span class="books-section-count">{{count}} 本</span>
-          </div>
-          <div class="books-grid">
-            {{#each cards}}
-              <a class="book-card" href="{{#if (eq urlType 'internal')}}{{{relativize href}}}{{else}}{{href}}{{/if}}">
-                <span class="book-card-cover accent-{{accent}}">
-                  <span class="book-card-cover-label">{{coverText}}</span>
-                </span>
-                <span class="book-card-body">
-                  <span class="book-card-title">{{title}}</span>
-                  <span class="book-card-description">{{description}}</span>
-                  <span class="book-card-tags">
-                    {{#each tags}}
-                      <span class="book-card-tag">{{this}}</span>
-                    {{/each}}
-                  </span>
-                </span>
-              </a>
-            {{/each}}
-          </div>
-        </section>
+        <a class="book-card" href="{{#if (eq urlType 'internal')}}{{{relativize href}}}{{else}}{{href}}{{/if}}">
+          <span class="book-card-cover accent-{{accent}}">
+            <span class="book-card-cover-label">{{coverText}}</span>
+          </span>
+          <span class="book-card-body">
+            <span class="book-card-title">{{title}}</span>
+            <span class="book-card-description">{{description}}</span>
+            <span class="book-card-tags">
+              {{#each tags}}
+                <span class="book-card-tag">{{this}}</span>
+              {{/each}}
+            </span>
+          </span>
+        </a>
       {{/each}}
     </div>
   {{else}}

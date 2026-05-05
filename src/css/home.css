@@ -39,31 +39,21 @@
   font-size: 1.05rem;
 }
 
-.books-home-sections {
-  display: grid;
-  gap: calc(var(--spacing) * 10);
-}
-
-.books-section {
-  display: grid;
-  gap: calc(var(--spacing) * 5);
-}
-
-.books-section-header {
+.books-home-summary {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
 }
 
-.books-section-title {
+.books-home-summary-title {
   margin: 0;
   color: var(--foreground);
   font-size: 1.6rem;
   letter-spacing: var(--tracking-tight);
 }
 
-.books-section-count {
+.books-home-summary-count {
   color: var(--muted-foreground);
   font-size: 0.875rem;
   white-space: nowrap;
@@ -176,7 +166,7 @@
     padding-top: calc(var(--spacing) * 4);
   }
 
-  .books-section-header {
+  .books-home-summary {
     align-items: flex-start;
     flex-direction: column;
   }

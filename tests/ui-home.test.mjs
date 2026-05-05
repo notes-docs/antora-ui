@@ -12,60 +12,46 @@ const homeLandingPath = path.join(srcDir, 'partials', 'home-landing.hbs')
 
 test('books home sections helper groups navigation leaves into card sections', async () => {
   const { default: booksHomeSections } = await import(helperPath)
-  const navigation = [
+  const components = [
     {
-      content: 'AI',
-      items: [
-        {
-          content: 'Stable Diffusion',
-          items: [
-            {
-              content: 'Stable Diffusion 生图',
-              url: '/ai/stable-diffusion.html',
-              urlType: 'internal',
-            },
-          ],
-        },
-        {
-          content: 'Locust',
-          url: '/ai/locust.html',
-          urlType: 'internal',
-        },
-      ],
+      name: 'antora-ui',
+      title: 'antoraUI 手册',
+      url: '/antora-ui/index.html',
+      latestVersion: {
+        url: '/antora-ui/index.html',
+        displayVersion: '3.1',
+      },
     },
     {
-      content: 'Go',
-      items: [
-        {
-          content: 'goRpc',
-          items: [
-            {
-              content: 'goRpc 手册',
-              url: '/go/gorpc-manual.html',
-              urlType: 'internal',
-            },
-          ],
-        },
-      ],
+      name: 'antora',
+      title: 'Antora 手册',
+      url: '/antora/index.html',
+      latestVersion: {
+        url: '/antora/index.html',
+        displayVersion: '3.1',
+      },
+    },
+    {
+      name: 'asciidoctor',
+      title: 'asciidoctor.js 手册',
+      url: '/asciidoctor-js/index.html',
+      latestVersion: {
+        url: '/asciidoctor-js/index.html',
+        displayVersion: '2.2',
+      },
     },
   ]
-  const sections = booksHomeSections(navigation)
+  const cards = booksHomeSections(components)
 
-  assert.equal(Array.isArray(sections), true)
+  assert.equal(Array.isArray(cards), true)
   assert.deepEqual(
-    sections.map((section) => section.title),
-    ['AI', 'Go']
+    cards.map((card) => card.title),
+    ['antoraUI 手册', 'Antora 手册', 'asciidoctor.js 手册']
   )
-  assert.equal(sections[0].count, 2)
-  assert.equal(sections[1].count, 1)
-  assert.deepEqual(
-    sections[0].cards.map((card) => card.title),
-    ['Stable Diffusion 生图', 'Locust']
-  )
-  assert.equal(sections[0].cards[0].href, '/ai/stable-diffusion.html')
-  assert.match(sections[0].cards[0].description, /AI/)
-  assert.deepEqual(sections[0].cards[0].tags, ['AI', 'Stable Diffusion'])
-  assert.equal(sections[1].cards[0].coverText.length > 0, true)
+  assert.equal(cards[0].href, '/antora-ui/index.html')
+  assert.match(cards[0].description, /3\.1/)
+  assert.deepEqual(cards[0].tags, ['组件手册', '3.1'])
+  assert.equal(cards[2].coverText.length > 0, true)
 })
 
 test('home page source switches to the books landing partial', () => {
@@ -76,7 +62,7 @@ test('home page source switches to the books landing partial', () => {
   assert.match(articleSource, /home-landing/)
 
   assert.match(homeLandingSource, /books-home/)
-  assert.match(homeLandingSource, /books-section/)
+  assert.match(homeLandingSource, /books-grid/)
   assert.match(homeLandingSource, /book-card/)
   assert.match(homeLandingSource, /booksHomeSections/)
 })

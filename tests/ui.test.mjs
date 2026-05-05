@@ -35,8 +35,8 @@ test('Lucode Antora UI templates contain the new shell markers', () => {
   const main = readFileSync(join(srcDir, 'partials', 'main.hbs'), 'utf8')
   const toc = readFileSync(join(srcDir, 'partials', 'toc.hbs'), 'utf8')
 
-  assert.match(header, /top-nav/)
   assert.match(header, /data-theme-toggle/)
+  assert.doesNotMatch(header, /top-nav/)
   assert.match(body, /site-shell/)
   assert.match(main, /docs-main-inner/)
   assert.match(toc, /toc-title/)

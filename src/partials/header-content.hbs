@@ -10,13 +10,6 @@
         <img id="navbar-logo" src="{{{uiRootPath}}}/img/logo.svg" alt="{{site.title}}">
         <span>{{site.title}}</span>
       </a>
-      <nav class="top-nav" aria-label="Primary">
-        {{#each site.components}}
-          <a class="top-nav-link{{#if (eq ../page.component.name @key)}} active{{/if}}" href="{{#if this.latest.url}}{{{relativize this.latest.url}}}{{else if this.url}}{{{relativize this.url}}}{{else}}{{{../siteRootPath}}}{{/if}}">
-            {{this.title}}
-          </a>
-        {{/each}}
-      </nav>
     </div>
     <div class="site-header-right">
       <button class="search-placeholder" type="button" aria-label="Search">
