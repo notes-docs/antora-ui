@@ -34,6 +34,7 @@ test('Lucode Antora UI templates contain the new shell markers', () => {
   const body = readFileSync(join(srcDir, 'partials', 'body.hbs'), 'utf8')
   const main = readFileSync(join(srcDir, 'partials', 'main.hbs'), 'utf8')
   const toc = readFileSync(join(srcDir, 'partials', 'toc.hbs'), 'utf8')
+  const mainCss = readFileSync(join(srcDir, 'css', 'main.css'), 'utf8')
   const homeCss = readFileSync(join(srcDir, 'css', 'home.css'), 'utf8')
   const docCss = readFileSync(join(srcDir, 'css', 'doc.css'), 'utf8')
 
@@ -42,6 +43,8 @@ test('Lucode Antora UI templates contain the new shell markers', () => {
   assert.match(body, /site-shell/)
   assert.match(main, /docs-main-inner/)
   assert.match(toc, /toc-title/)
+  assert.match(mainCss, /\.docs-main\.is-home \.docs-main-inner/)
+  assert.match(mainCss, /margin-inline:\s*auto/)
   assert.match(homeCss, /justify-content:\s*center/)
   assert.match(homeCss, /width:\s*min\(100%,\s*.*rem\)/)
   assert.match(homeCss, /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*18rem\)\)/)

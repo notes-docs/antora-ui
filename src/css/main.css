@@ -9,6 +9,7 @@
 
 .docs-main.is-home .docs-main-inner {
   width: min(100%, 74rem);
+  margin-inline: auto;
 }
 
 .docs-main.is-not-found .docs-main-inner {
