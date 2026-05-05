@@ -95,7 +95,7 @@
   min-height: 2.5rem;
   padding: 0 0.875rem;
   flex: 0 0 auto;
-  min-width: 13rem;
+  min-width: 12rem;
   justify-content: space-between;
   font-size: 0.875rem;
   color: var(--muted-foreground);
@@ -168,10 +168,6 @@
 
 .site-header-right {
   gap: 0.5rem;
-}
-
-.search-placeholder {
-  min-width: 12rem;
 }
 
 :root[data-theme='dark'] .theme-toggle-icon.theme-light {
