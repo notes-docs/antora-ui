@@ -98,4 +98,7 @@ test('home page source switches to the books landing partial', () => {
   assert.match(homeLandingSource, /books-grid/)
   assert.match(homeLandingSource, /book-card/)
   assert.match(homeLandingSource, /booksHomeSections/)
+  assert.doesNotMatch(homeLandingSource, /books-home-hero/)
+  assert.doesNotMatch(homeLandingSource, /books-home-kicker/)
+  assert.doesNotMatch(homeLandingSource, /books-home-title/)
 })

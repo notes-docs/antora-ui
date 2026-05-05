@@ -90,11 +90,80 @@
 }
 
 .doc pre {
+  position: relative;
   overflow: auto;
   background: color-mix(in oklab, var(--code-background) 92%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: calc(var(--radius) + 2px);
   padding: 1rem 1.125rem;
+}
+
+.source-toolbox {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.source-lang {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: color-mix(in oklab, var(--muted) 78%, transparent);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.copy-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+  border-radius: calc(var(--radius) - 2px);
+  background: color-mix(in oklab, var(--background) 92%, transparent);
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  background: color-mix(in oklab, var(--muted) 72%, transparent);
+}
+
+.copy-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.copy-toast {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: calc(var(--radius) - 3px);
+  padding: 0.2rem 0.45rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 0.72rem;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateY(-2px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.copy-button.clicked .copy-toast {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .doc blockquote {

@@ -1,14 +1,4 @@
 <article class="books-home">
-  <header class="books-home-hero">
-    <span class="books-home-kicker">Books</span>
-    {{#with page.title}}
-      <h1 class="books-home-title">{{{this}}}</h1>
-    {{/with}}
-    {{#with page.attributes.description}}
-      <p class="books-home-lede">{{this}}</p>
-    {{/with}}
-  </header>
-
   {{#with (booksHomeSections site.components)}}
     <div class="books-home-summary">
       <h2 class="books-home-summary-title">全部手册</h2>

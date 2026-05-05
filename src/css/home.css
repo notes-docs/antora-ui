@@ -1,42 +1,8 @@
 .books-home {
   display: grid;
   gap: calc(var(--spacing) * 12);
-}
-
-.books-home-hero {
-  display: grid;
-  gap: calc(var(--spacing) * 4);
-  padding: calc(var(--spacing) * 8) 0 calc(var(--spacing) * 4);
-  border-bottom: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-}
-
-.books-home-kicker {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  border-radius: 999px;
-  padding: 0.35rem 0.7rem;
-  background: color-mix(in oklab, var(--muted) 65%, transparent);
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.books-home-title {
-  margin: 0;
-  font-size: clamp(2.4rem, 4vw, 4.75rem);
-  line-height: 0.95;
-  letter-spacing: var(--tracking-tighter);
-  color: var(--foreground);
-}
-
-.books-home-lede {
-  margin: 0;
-  max-width: 46rem;
-  color: var(--muted-foreground);
-  font-size: 1.05rem;
+  width: min(100%, 92rem);
+  margin: 0 auto;
 }
 
 .books-home-summary {
@@ -61,8 +27,9 @@
 
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 18rem));
   gap: 1rem;
+  justify-content: center;
 }
 
 .book-card {
@@ -161,11 +128,19 @@
   color: var(--muted-foreground);
 }
 
-@media screen and (max-width: 767.5px) {
-  .books-home-hero {
-    padding-top: calc(var(--spacing) * 4);
+@media screen and (max-width: 1200px) {
+  .books-grid {
+    grid-template-columns: repeat(3, minmax(0, 18rem));
   }
+}
 
+@media screen and (max-width: 900px) {
+  .books-grid {
+    grid-template-columns: repeat(2, minmax(0, 18rem));
+  }
+}
+
+@media screen and (max-width: 767.5px) {
   .books-home-summary {
     align-items: flex-start;
     flex-direction: column;
