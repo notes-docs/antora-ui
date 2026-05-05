@@ -10,6 +10,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0 0 calc(var(--spacing) * 3);
+  white-space: nowrap;
 }
 
 .toc-menu .nav {
@@ -18,8 +19,10 @@
 }
 
 .toc a {
+  display: block;
   color: var(--muted-foreground);
   font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 .toc a:hover {
