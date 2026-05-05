@@ -3,7 +3,9 @@
 const ACCENTS = ['orange', 'blue', 'green', 'red', 'purple']
 
 module.exports = function booksHomeSections (components = []) {
-  return components.reduce((cards, component, index) => {
+  const componentList = Array.isArray(components) ? components : Object.values(components || {})
+
+  return componentList.reduce((cards, component, index) => {
     const title = normalizeLabel(component.title)
     const href = component.latestVersion?.url || component.url
     if (!title || !href) return cards

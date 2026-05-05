@@ -54,6 +54,39 @@ test('books home sections helper groups navigation leaves into card sections', a
   assert.equal(cards[2].coverText.length > 0, true)
 })
 
+test('books home sections helper accepts Antora component maps', async () => {
+  const { default: booksHomeSections } = await import(helperPath)
+  const components = {
+    antora: {
+      name: 'antora',
+      title: 'Antora 手册',
+      url: '/antora/index.html',
+      latestVersion: {
+        url: '/antora/index.html',
+        displayVersion: '3.1',
+      },
+    },
+    asciidoctor: {
+      name: 'asciidoctor',
+      title: 'asciidoctor.js 手册',
+      url: '/asciidoctor-js/index.html',
+      latestVersion: {
+        url: '/asciidoctor-js/index.html',
+        displayVersion: '2.2',
+      },
+    },
+  }
+
+  const cards = booksHomeSections(components)
+
+  assert.equal(Array.isArray(cards), true)
+  assert.deepEqual(
+    cards.map((card) => card.title),
+    ['Antora 手册', 'asciidoctor.js 手册']
+  )
+  assert.equal(cards[1].href, '/asciidoctor-js/index.html')
+})
+
 test('home page source switches to the books landing partial', () => {
   const articleSource = fs.readFileSync(articlePath, 'utf8')
   const homeLandingSource = fs.readFileSync(homeLandingPath, 'utf8')
