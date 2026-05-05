@@ -1,4 +1,4 @@
-<main class="docs-main{{#if (eq page.layout '404')}} is-not-found{{/if}}">
+<main class="docs-main{{#if (eq page.layout '404')}} is-not-found{{/if}}{{#if page.home}} is-home{{/if}}">
   <div class="docs-main-inner">
     {{#unless (eq page.layout '404')}}
       {{> breadcrumbs}}
@@ -10,7 +10,7 @@
       {{> pagination}}
     {{/if}}
   </div>
-  {{#unless (eq page.layout '404')}}
+  {{#unless (or (eq page.layout '404') page.home)}}
     <aside class="docs-toc">
       {{> toc}}
     </aside>

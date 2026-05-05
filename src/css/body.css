@@ -22,6 +22,10 @@
     gap: 2rem;
   }
 
+  .site-shell.site-shell-home {
+    display: block;
+  }
+
   .docs-sidebar {
     display: block;
     position: sticky;
@@ -33,6 +37,10 @@
 @media screen and (min-width: 1280px) {
   .site-shell {
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--toc-width);
+  }
+
+  .site-shell.site-shell-home {
+    display: block;
   }
 
   .docs-toc {

@@ -1,0 +1,187 @@
+.books-home {
+  display: grid;
+  gap: calc(var(--spacing) * 12);
+}
+
+.books-home-hero {
+  display: grid;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 8) 0 calc(var(--spacing) * 4);
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+}
+
+.books-home-kicker {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  background: color-mix(in oklab, var(--muted) 65%, transparent);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.books-home-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--foreground);
+}
+
+.books-home-lede {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--muted-foreground);
+  font-size: 1.05rem;
+}
+
+.books-home-sections {
+  display: grid;
+  gap: calc(var(--spacing) * 10);
+}
+
+.books-section {
+  display: grid;
+  gap: calc(var(--spacing) * 5);
+}
+
+.books-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.books-section-title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1.6rem;
+  letter-spacing: var(--tracking-tight);
+}
+
+.books-section-count {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.book-card {
+  display: grid;
+  grid-template-rows: 168px 1fr;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--border) 88%, transparent);
+  border-radius: calc(var(--radius) + 4px);
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  box-shadow: 0 20px 45px -35px color-mix(in oklab, var(--foreground) 24%, transparent);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--foreground) 18%, var(--border));
+  box-shadow: 0 28px 60px -35px color-mix(in oklab, var(--foreground) 30%, transparent);
+}
+
+.book-card-cover {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 1rem;
+  color: white;
+  background:
+    radial-gradient(circle at top right, color-mix(in oklab, white 28%, transparent), transparent 32%),
+    linear-gradient(145deg, color-mix(in oklab, var(--foreground) 30%, transparent), transparent 60%);
+}
+
+.book-card-cover.accent-orange {
+  background-color: color-mix(in oklab, var(--orange) 76%, black 10%);
+}
+
+.book-card-cover.accent-blue {
+  background-color: color-mix(in oklab, var(--blue) 76%, black 10%);
+}
+
+.book-card-cover.accent-green {
+  background-color: color-mix(in oklab, var(--green) 76%, black 10%);
+}
+
+.book-card-cover.accent-red {
+  background-color: color-mix(in oklab, var(--red) 76%, black 10%);
+}
+
+.book-card-cover.accent-purple {
+  background-color: color-mix(in oklab, var(--purple) 76%, black 10%);
+}
+
+.book-card-cover-label {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+}
+
+.book-card-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.book-card-title {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.book-card-description {
+  color: var(--muted-foreground);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.book-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.book-card-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  background: color-mix(in oklab, var(--muted) 70%, transparent);
+  color: var(--muted-foreground);
+  font-size: 0.78rem;
+}
+
+.books-home-empty {
+  padding: calc(var(--spacing) * 12) 0;
+  color: var(--muted-foreground);
+}
+
+@media screen and (max-width: 767.5px) {
+  .books-home-hero {
+    padding-top: calc(var(--spacing) * 4);
+  }
+
+  .books-section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

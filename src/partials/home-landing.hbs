@@ -1,0 +1,46 @@
+<article class="books-home">
+  <header class="books-home-hero">
+    <span class="books-home-kicker">Books</span>
+    {{#with page.title}}
+      <h1 class="books-home-title">{{{this}}}</h1>
+    {{/with}}
+    {{#with page.attributes.description}}
+      <p class="books-home-lede">{{this}}</p>
+    {{/with}}
+  </header>
+
+  {{#with (booksHomeSections page.navigation)}}
+    <div class="books-home-sections">
+      {{#each this}}
+        <section class="books-section" id="{{anchor}}">
+          <div class="books-section-header">
+            <h2 class="books-section-title">{{title}}</h2>
+            <span class="books-section-count">{{count}} 本</span>
+          </div>
+          <div class="books-grid">
+            {{#each cards}}
+              <a class="book-card" href="{{#if (eq urlType 'internal')}}{{{relativize href}}}{{else}}{{href}}{{/if}}">
+                <span class="book-card-cover accent-{{accent}}">
+                  <span class="book-card-cover-label">{{coverText}}</span>
+                </span>
+                <span class="book-card-body">
+                  <span class="book-card-title">{{title}}</span>
+                  <span class="book-card-description">{{description}}</span>
+                  <span class="book-card-tags">
+                    {{#each tags}}
+                      <span class="book-card-tag">{{this}}</span>
+                    {{/each}}
+                  </span>
+                </span>
+              </a>
+            {{/each}}
+          </div>
+        </section>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="books-home-empty">
+      <p>当前导航里还没有可展示的书籍页面。</p>
+    </div>
+  {{/with}}
+</article>

@@ -15,6 +15,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  overflow: hidden;
 }
 
 .site-header-left,
@@ -22,6 +23,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  min-width: 0;
 }
 
 .site-brand {
@@ -44,6 +46,11 @@
   align-items: center;
   gap: 0.375rem;
   margin-left: 0.5rem;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
 }
 
 .top-nav-link {
@@ -51,11 +58,13 @@
   align-items: center;
   justify-content: center;
   min-height: 2rem;
+  flex: 0 0 auto;
   padding: 0 0.625rem;
   border-radius: calc(var(--radius) - 2px);
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--foreground);
+  white-space: nowrap;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
@@ -81,10 +90,15 @@
   gap: 0.75rem;
   min-height: 2.5rem;
   padding: 0 0.875rem;
+  flex: 0 0 auto;
   min-width: 13rem;
   justify-content: space-between;
   font-size: 0.875rem;
   color: var(--muted-foreground);
+}
+
+.top-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .search-placeholder kbd {
@@ -138,5 +152,11 @@
 
   .mobile-nav-toggle {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1023.5px) {
+  .site-header-right {
+    margin-left: auto;
   }
 }

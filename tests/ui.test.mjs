@@ -10,12 +10,15 @@ const srcDir = join(packageDir, 'src')
 test('Lucode Antora UI source files exist', () => {
   const expectedFiles = [
     'partials/header-content.hbs',
+    'partials/home-landing.hbs',
     'partials/body.hbs',
     'partials/nav.hbs',
     'partials/article.hbs',
     'partials/toc.hbs',
+    'helpers/booksHomeSections.js',
     'css/vars.css',
     'css/header.css',
+    'css/home.css',
     'css/nav.css',
     'css/doc.css',
     'js/08-theme-toggle.js',

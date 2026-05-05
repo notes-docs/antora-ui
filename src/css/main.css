@@ -7,6 +7,10 @@
   padding-block: calc(var(--spacing) * 10) calc(var(--spacing) * 16);
 }
 
+.docs-main.is-home .docs-main-inner {
+  width: min(100%, 74rem);
+}
+
 .docs-main.is-not-found .docs-main-inner {
   width: min(100%, 36rem);
   padding-block: calc(var(--spacing) * 16);

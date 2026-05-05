@@ -1,20 +1,24 @@
-<article class="doc">
-  <header class="doc-article-header">
-    <div class="doc-kicker-row">
-      {{#if page.componentVersion}}
-        <span class="doc-kicker">{{page.componentVersion.title}}</span>
-        {{#if page.componentVersion.displayVersion}}
-          <span class="doc-kicker-separator">/</span>
-          <span class="doc-kicker">{{page.componentVersion.displayVersion}}</span>
+{{#if page.home}}
+  {{> home-landing}}
+{{else}}
+  <article class="doc">
+    <header class="doc-article-header">
+      <div class="doc-kicker-row">
+        {{#if page.componentVersion}}
+          <span class="doc-kicker">{{page.componentVersion.title}}</span>
+          {{#if page.componentVersion.displayVersion}}
+            <span class="doc-kicker-separator">/</span>
+            <span class="doc-kicker">{{page.componentVersion.displayVersion}}</span>
+          {{/if}}
         {{/if}}
-      {{/if}}
-    </div>
-    {{#with page.title}}
-      <h1 class="page">{{{this}}}</h1>
-    {{/with}}
-    {{#with page.attributes.description}}
-      <p class="doc-lede">{{this}}</p>
-    {{/with}}
-  </header>
-  {{{page.contents}}}
-</article>
+      </div>
+      {{#with page.title}}
+        <h1 class="page">{{{this}}}</h1>
+      {{/with}}
+      {{#with page.attributes.description}}
+        <p class="doc-lede">{{this}}</p>
+      {{/with}}
+    </header>
+    {{{page.contents}}}
+  </article>
+{{/if}}

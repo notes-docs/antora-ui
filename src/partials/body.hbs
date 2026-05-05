@@ -1,6 +1,6 @@
 <div class="body">
-  <div class="site-shell">
-    {{#unless (eq page.layout '404')}}
+  <div class="site-shell{{#if page.home}} site-shell-home{{/if}}">
+    {{#unless (or (eq page.layout '404') page.home)}}
       <aside class="docs-sidebar nav-container">
         {{> nav}}
       </aside>
