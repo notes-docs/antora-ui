@@ -7,33 +7,40 @@
   margin-bottom: calc(var(--spacing) * 8);
 }
 
-.doc-kicker-row {
+div[data-slot='doc-title'] {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  margin-bottom: calc(var(--spacing) * 4);
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
 }
 
-.doc-kicker {
-  font-weight: 500;
+[data-slot='doc-title-header'] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 2);
 }
 
 .doc .page {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 1.05;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
   font-weight: 600;
-  letter-spacing: var(--tracking-tighter);
+  letter-spacing: var(--tracking-tight);
   color: var(--foreground);
 }
 
-.doc-lede {
-  margin: calc(var(--spacing) * 4) 0 0;
+[slot='doc-title-description'] {
+  margin: 0;
   color: var(--muted-foreground);
-  font-size: 1.05rem;
-  max-width: 44rem;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  text-wrap: balance;
+}
+
+@media screen and (min-width: 640px) {
+  [slot='doc-title-description'] {
+    max-width: 80%;
+  }
 }
 
 .doc > *:first-child {

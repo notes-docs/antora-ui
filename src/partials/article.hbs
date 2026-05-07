@@ -2,21 +2,14 @@
   {{> home-landing}}
 {{else}}
   <article class="doc">
-    <header class="doc-article-header">
-      <div class="doc-kicker-row">
-        {{#if page.componentVersion}}
-          <span class="doc-kicker">{{page.componentVersion.title}}</span>
-          {{#if page.componentVersion.displayVersion}}
-            <span class="doc-kicker-separator">/</span>
-            <span class="doc-kicker">{{page.componentVersion.displayVersion}}</span>
-          {{/if}}
-        {{/if}}
+    <header class="doc-article-header" data-slot="doc-title">
+      <div class="doc-article-title-row" data-slot="doc-title-header">
+        {{#with page.title}}
+          <h1 class="page">{{{this}}}</h1>
+        {{/with}}
       </div>
-      {{#with page.title}}
-        <h1 class="page">{{{this}}}</h1>
-      {{/with}}
       {{#with page.attributes.description}}
-        <p class="doc-lede">{{this}}</p>
+        <p class="doc-lede" slot="doc-title-description">{{this}}</p>
       {{/with}}
     </header>
     {{{page.contents}}}
