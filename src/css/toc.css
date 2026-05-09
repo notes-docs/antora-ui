@@ -1,6 +1,8 @@
 .docs-toc-panel {
   position: sticky;
   top: calc(var(--header-height) + 2rem);
+  width: 100%;
+  min-width: 0;
   max-height: var(--toc-height);
   overflow: auto;
   padding-top: calc(var(--spacing) * 10);
@@ -26,33 +28,41 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: 0.45rem;
+  width: 100%;
+}
+
+.toc-menu li {
+  display: block;
+  width: 100%;
+}
+
+.toc-menu li + li {
+  margin-top: 0.2rem;
 }
 
 .toc-menu li > ul {
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
 }
 
-.toc-menu li[data-level='2'] a {
+.toc-menu li[data-level='2'] > ul {
+  padding-left: 0.85rem;
+}
+
+.toc-menu li[data-level='3'] > ul {
+  padding-left: 0.85rem;
+}
+
+.toc-menu li[data-level='4'] > ul {
   padding-left: 0.75rem;
-}
-
-.toc-menu li[data-level='3'] a {
-  padding-left: 1.5rem;
-}
-
-.toc-menu li[data-level='4'] a {
-  padding-left: 2.25rem;
 }
 
 .toc a {
   display: block;
+  width: 100%;
   color: var(--muted-foreground);
   font-size: 0.875rem;
   line-height: 1.6;
   padding: 0.45rem 0.625rem;
-  margin-left: -0.5rem;
   border-radius: calc(var(--radius) - 4px);
   text-wrap: pretty;
   word-break: break-word;
