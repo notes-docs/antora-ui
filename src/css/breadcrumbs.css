@@ -1,5 +1,5 @@
 .breadcrumbs {
-  margin-bottom: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 8);
 }
 
 .breadcrumbs ul,
@@ -12,10 +12,19 @@
   list-style: none;
   color: var(--muted-foreground);
   font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .breadcrumbs li + li::before {
   content: "/";
   margin-right: 0.4rem;
   color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--foreground);
 }

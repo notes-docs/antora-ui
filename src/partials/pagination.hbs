@@ -3,6 +3,20 @@
     <nav class="pagination">
       {{#with page.previous}}
         <a class="prev" href="{{{relativize ./url}}}">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
           <span class="pagination-label">Previous</span>
           <strong>{{{./content}}}</strong>
         </a>
@@ -11,6 +25,20 @@
         <a class="next" href="{{{relativize ./url}}}">
           <span class="pagination-label">Next</span>
           <strong>{{{./content}}}</strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
         </a>
       {{/with}}
     </nav>

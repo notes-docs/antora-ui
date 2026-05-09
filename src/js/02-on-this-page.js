@@ -1,123 +1,102 @@
-// 这段代码实现了一个侧边目录（TOC，Table of Contents），用于展示文章中的标题结构并在用户滚动页面时更新高亮当前活动的目录项
-
 ;(function () {
   'use strict'
 
-  // 1. 初始化侧边目录
-  var sidebar = document.querySelector('aside.toc.sidebar')
-  // 如果页面中存在 aside.toc.sidebar 元素（即侧边目录容器），则初始化目录
-  if (!sidebar) return
-  if (document.querySelector('body.-toc')) return sidebar.parentNode.removeChild(sidebar)
-  // 获取 data-levels 属性定义的标题级数，默认为 2（即支持 H1, H2, H3 的目录）
-  var levels = parseInt(sidebar.dataset.levels || 2, 10)
-  if (levels < 0) return
+  var toc = document.querySelector('.docs-toc-panel')
+  var article = document.querySelector('article.doc')
+  if (!toc || !article) return
 
-  // 选择 article.doc 元素作为文章主体，获取对应的标题元素（h1 到 h3）
-  // 2. 构建目录列表
-  var articleSelector = 'article.doc'
-  var article = document.querySelector(articleSelector)
-  var headingsSelector = []
-  for (var level = 0; level <= levels; level++) {
-    var headingSelector = [articleSelector]
-    if (level) {
-      for (var l = 1; l <= level; l++) headingSelector.push((l === 2 ? '.sectionbody>' : '') + '.sect' + l)
-      headingSelector.push('h' + (level + 1) + '[id]')
-    } else {
-      headingSelector.push('h1[id].sect0')
-    }
-    headingsSelector.push(headingSelector.join('>'))
-  }
-  var headings = find(headingsSelector.join(','), article.parentNode)
-  if (!headings.length) return sidebar.parentNode.removeChild(sidebar)
+  var links = Array.prototype.slice.call(toc.querySelectorAll('.toc-menu a'))
+  if (!links.length) return
 
-  var lastActiveFragment
-  var links = {}
-  var list = headings.reduce(function (accum, heading) {
-    var link = document.createElement('a')
-    link.textContent = heading.textContent
-    links[(link.href = '#' + heading.id)] = link
-    var listItem = document.createElement('li')
-    listItem.dataset.level = parseInt(heading.nodeName.slice(1), 10) - 1
-    listItem.appendChild(link)
-    accum.appendChild(listItem)
-    return accum
-  }, document.createElement('ul'))
+  var current = toc.querySelector('a[aria-current="true"]')
 
-  // 3. 创建目录菜单
-  var menu = sidebar.querySelector('.toc-menu')
-  if (!menu) (menu = document.createElement('div')).className = 'toc-menu'
-
-  var title = document.createElement('h3')
-  title.textContent = sidebar.dataset.title || 'Contents'
-  menu.appendChild(title)
-  menu.appendChild(list)
-
-  var startOfContent = !document.getElementById('toc') && article.querySelector('h1.page ~ :not(.is-before-toc)')
-  if (startOfContent) {
-    var embeddedToc = document.createElement('aside')
-    embeddedToc.className = 'toc embedded'
-    embeddedToc.appendChild(menu.cloneNode(true))
-    startOfContent.parentNode.insertBefore(embeddedToc, startOfContent)
+  function setCurrent (link) {
+    if (!link || link === current) return
+    if (current) current.removeAttribute('aria-current')
+    link.setAttribute('aria-current', 'true')
+    current = link
+    link.scrollIntoView({ block: 'nearest' })
   }
 
-  // 4. 滚动事件
-  window.addEventListener('load', function () {
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-  })
+  function getRootMargin () {
+    var headerHeight = document.querySelector('.header')?.getBoundingClientRect().height || 0
+    var top = Math.round(headerHeight + 32)
+    var bottom = top + 53 - document.documentElement.clientHeight
+    return '-' + top + 'px 0% ' + bottom + 'px'
+  }
 
-  function onScroll () {
-    var scrolledBy = window.pageYOffset
-    var buffer = getNumericStyleVal(document.documentElement, 'fontSize') * 1.15
-    var ceil = article.offsetTop
-    if (scrolledBy && window.innerHeight + scrolledBy + 2 >= document.documentElement.scrollHeight) {
-      lastActiveFragment = Array.isArray(lastActiveFragment) ? lastActiveFragment : Array(lastActiveFragment || 0)
-      var activeFragments = []
-      var lastIdx = headings.length - 1
-      headings.forEach(function (heading, idx) {
-        var fragment = '#' + heading.id
-        if (idx === lastIdx || heading.getBoundingClientRect().top + getNumericStyleVal(heading, 'paddingTop') > ceil) {
-          activeFragments.push(fragment)
-          if (lastActiveFragment.indexOf(fragment) < 0) links[fragment].classList.add('is-active')
-        } else if (~lastActiveFragment.indexOf(fragment)) {
-          links[lastActiveFragment.shift()].classList.remove('is-active')
-        }
-      })
-      list.scrollTop = list.scrollHeight - list.offsetHeight
-      lastActiveFragment = activeFragments.length > 1 ? activeFragments : activeFragments[0]
-      return
-    }
-    if (Array.isArray(lastActiveFragment)) {
-      lastActiveFragment.forEach(function (fragment) {
-        links[fragment].classList.remove('is-active')
-      })
-      lastActiveFragment = undefined
-    }
-    var activeFragment
-    headings.some(function (heading) {
-      if (heading.getBoundingClientRect().top + getNumericStyleVal(heading, 'paddingTop') - buffer > ceil) return true
-      activeFragment = '#' + heading.id
-    })
-    if (activeFragment) {
-      if (activeFragment === lastActiveFragment) return
-      if (lastActiveFragment) links[lastActiveFragment].classList.remove('is-active')
-      var activeLink = links[activeFragment]
-      activeLink.classList.add('is-active')
-      if (list.scrollHeight > list.offsetHeight) {
-        list.scrollTop = Math.max(0, activeLink.offsetTop + activeLink.offsetHeight - list.offsetHeight)
+  function buildObservedNodes () {
+    return Array.prototype.slice.call(
+      document.querySelectorAll('main [id], main [id] ~ *, main .doc-content > *')
+    )
+  }
+
+  function findHeading (origin) {
+    if (!origin) return null
+    var node = origin
+
+    while (node) {
+      if (node instanceof HTMLHeadingElement && node.id) return node
+
+      var previous = node.previousElementSibling
+      while (previous && previous.lastElementChild) previous = previous.lastElementChild
+      if (previous) {
+        var fromSibling = findHeading(previous)
+        if (fromSibling) return fromSibling
       }
-      lastActiveFragment = activeFragment
-    } else if (lastActiveFragment) {
-      links[lastActiveFragment].classList.remove('is-active')
-      lastActiveFragment = undefined
+
+      node = node.parentElement
+      if (node === article) break
     }
+
+    return article.querySelector('h1.page[id], h2[id], h3[id], h4[id]')
   }
 
-  function find (selector, from) {
-    return [].slice.call((from || document).querySelectorAll(selector))
+  function findLinkForHeading (heading) {
+    if (!heading) return null
+    var targetHash = '#' + encodeURIComponent(heading.id)
+    return links.find(function (link) {
+      return link.hash === targetHash || link.getAttribute('href') === '#' + heading.id
+    })
   }
 
-  function getNumericStyleVal (el, prop) {
-    return parseFloat(window.getComputedStyle(el)[prop])
+  var observer
+
+  function observe () {
+    if (observer) return
+
+    observer = new IntersectionObserver(
+      function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i]
+          if (!entry.isIntersecting) continue
+          var heading = findHeading(entry.target)
+          var link = findLinkForHeading(heading)
+          if (link) {
+            setCurrent(link)
+            break
+          }
+        }
+      },
+      { rootMargin: getRootMargin() }
+    )
+
+    buildObservedNodes().forEach(function (node) {
+      observer.observe(node)
+    })
   }
+
+  function resetObserverSoon () {
+    if (observer) {
+      observer.disconnect()
+      observer = undefined
+    }
+    window.clearTimeout(resetObserverSoon.timeout)
+    resetObserverSoon.timeout = window.setTimeout(function () {
+      observe()
+    }, 200)
+  }
+
+  observe()
+  window.addEventListener('resize', resetObserverSoon)
 })()

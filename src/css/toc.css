@@ -18,15 +18,46 @@
   gap: 0.65rem;
 }
 
+.toc-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.toc-menu li[data-level='2'] a {
+  padding-left: 0.75rem;
+}
+
+.toc-menu li[data-level='3'] a {
+  padding-left: 1.5rem;
+}
+
+.toc-menu li[data-level='4'] a {
+  padding-left: 2.25rem;
+}
+
 .toc a {
   display: block;
   color: var(--muted-foreground);
   font-size: 0.875rem;
   line-height: 1.6;
+  padding: 0.35rem 0.5rem;
+  margin-left: -0.5rem;
+  border-radius: calc(var(--radius) - 4px);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .toc a:hover {
   color: var(--foreground);
+  background: color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+.toc a:is(.is-active, [aria-current='true']) {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--accent) 70%, transparent);
+  font-weight: 500;
 }
 
 @media screen and (max-width: 1279.5px) {

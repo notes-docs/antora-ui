@@ -1,26 +1,63 @@
 .pagination {
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: calc(var(--spacing) * 4);
+  margin-top: calc(var(--spacing) * 8);
+  border-top: 1px solid color-mix(in oklab, var(--border) 82%, transparent);
 }
 
 .pagination a {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: 1rem 1.125rem;
-  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-  border-radius: calc(var(--radius) + 2px);
-  background: color-mix(in oklab, var(--card) 92%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2rem;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.pagination a:hover {
+  background: color-mix(in oklab, var(--secondary) 80%, transparent);
+}
+
+.pagination a strong {
+  font-weight: 500;
+}
+
+.pagination a svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 .pagination a.next {
-  text-align: right;
+  margin-left: auto;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 767.5px) {
   .pagination {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pagination a {
+    justify-content: flex-start;
+  }
+
+  .pagination a.next {
+    margin-left: 0;
+    justify-content: space-between;
   }
 }
