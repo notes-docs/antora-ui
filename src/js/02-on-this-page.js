@@ -34,9 +34,10 @@
   function findHeading (origin) {
     if (!origin) return null
     var node = origin
+    var HeadingCtor = window.HTMLHeadingElement
 
     while (node) {
-      if (node instanceof HTMLHeadingElement && node.id) return node
+      if (HeadingCtor && node instanceof HeadingCtor && node.id) return node
 
       var previous = node.previousElementSibling
       while (previous && previous.lastElementChild) previous = previous.lastElementChild
@@ -64,8 +65,10 @@
 
   function observe () {
     if (observer) return
+    var IntersectionObserverCtor = window.IntersectionObserver
+    if (!IntersectionObserverCtor) return
 
-    observer = new IntersectionObserver(
+    observer = new IntersectionObserverCtor(
       function (entries) {
         for (var i = 0; i < entries.length; i++) {
           var entry = entries[i]
