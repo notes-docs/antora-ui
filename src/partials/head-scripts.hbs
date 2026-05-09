@@ -5,7 +5,10 @@
     <script>var uiRootPath = '{{{uiRootPath}}}'</script>
     <script>
       (function () {
-        var storedTheme = window.localStorage.getItem('lucode-theme')
+        var storedTheme = null
+        try {
+          storedTheme = window.localStorage.getItem('lucode-theme')
+        } catch (err) {}
         var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         var theme = storedTheme || (systemDark ? 'dark' : 'light')
         document.documentElement.dataset.theme = theme

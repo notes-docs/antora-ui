@@ -8,8 +8,12 @@
   if (!themeToggle) return
 
   function getStoredTheme () {
-    var storedTheme = window.localStorage.getItem(storageKey)
-    return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null
+    try {
+      var storedTheme = window.localStorage.getItem(storageKey)
+      return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null
+    } catch (err) {
+      return null
+    }
   }
 
   function getPreferredTheme () {
@@ -31,11 +35,19 @@
 
   themeToggle.addEventListener('click', function () {
     var nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark'
-    window.localStorage.setItem(storageKey, nextTheme)
+    try {
+      window.localStorage.setItem(storageKey, nextTheme)
+    } catch (err) {}
     applyTheme(nextTheme)
   })
 
-  media.addEventListener('change', function () {
+  var handlePreferenceChange = function () {
     if (!getStoredTheme()) syncThemeFromPreference()
-  })
+  }
+
+  if (media.addEventListener) {
+    media.addEventListener('change', handlePreferenceChange)
+  } else if (media.addListener) {
+    media.addListener(handlePreferenceChange)
+  }
 })()

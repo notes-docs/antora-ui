@@ -48,7 +48,9 @@ module.exports = (src, dest, preview) => () => {
         },
       },
     ]),
-    postcssVar({ preserve: preview }),
+    // Preserve CSS custom properties in all builds so runtime theme toggling
+    // can switch the variable values instead of baking light-theme colors.
+    postcssVar({ preserve: true }),
     preview ? postcssCalc : () => {},
     autoprefixer,
     preview

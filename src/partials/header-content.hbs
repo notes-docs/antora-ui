@@ -10,6 +10,11 @@
         <img id="navbar-logo" src="{{{uiRootPath}}}/img/logo.svg" alt="{{site.title}}">
         <span class="site-brand-label">{{site.title}}</span>
       </a>
+      {{#with page.componentVersion}}
+        <a class="mobile-context-link" href="{{{relativize ./url}}}">
+          {{or @root.page.component.title 'Books'}}
+        </a>
+      {{/with}}
       <nav class="docs-nav-bar" aria-label="Primary">
         <a class="docs-nav-link" href="https://lzh06550107.github.io/">Home</a>
         <a class="docs-nav-link" href="https://lzh06550107.github.io/docs/blog/">Blog</a>

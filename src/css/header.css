@@ -45,6 +45,23 @@
   display: none;
 }
 
+.mobile-context-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  max-width: min(13rem, 38vw);
+  padding: 0 0.75rem;
+  border-radius: calc(var(--radius) - 2px);
+  background: color-mix(in oklab, var(--accent) 55%, transparent);
+  color: var(--foreground);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .docs-nav-bar {
   display: none;
   align-items: center;
@@ -317,6 +334,10 @@
 
   .site-brand-label {
     display: inline-block;
+  }
+
+  .mobile-context-link {
+    display: none;
   }
 }
 
