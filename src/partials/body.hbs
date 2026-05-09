@@ -6,5 +6,10 @@
       </aside>
     {{/unless}}
     {{> main}}
+    {{#unless (or (eq page.layout '404') page.home)}}
+      <aside class="docs-toc">
+        {{> toc}}
+      </aside>
+    {{/unless}}
   </div>
 </div>
