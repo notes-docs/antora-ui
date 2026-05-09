@@ -8,7 +8,7 @@
   --radius: 0.625rem;
   --header-height: calc(var(--spacing) * 14);
   --sidebar-width: 18rem;
-  --toc-width: 22rem;
+  --toc-width: 18rem;
   --container-max-width: 1600px;
   --foreground: oklch(14.5% 0 0);
   --gray-1: oklch(20.5% 0 0);
@@ -63,8 +63,8 @@
   --body-min-height: calc(100vh - var(--body-top));
   --nav-width: var(--sidebar-width);
   --toc-height: calc(100vh - var(--header-height) - 2rem);
-  --doc-max-width: 60rem;
-  --doc-max-width--desktop: 60rem;
+  --doc-max-width: 58rem;
+  --doc-max-width--desktop: 58rem;
   --z-index-doc: 1;
   --z-index-nav: 2;
   --z-index-toolbar: 3;

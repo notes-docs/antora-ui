@@ -5,6 +5,7 @@
 .docs-main-inner {
   width: min(100%, var(--doc-max-width--desktop));
   padding-block: calc(var(--spacing) * 10) calc(var(--spacing) * 16);
+  margin-inline: auto;
 }
 
 .docs-main.is-home .docs-main-inner {
@@ -20,6 +21,6 @@
 @media screen and (min-width: 1280px) {
   .docs-main {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 }

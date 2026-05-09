@@ -19,7 +19,7 @@
   .site-shell {
     display: grid;
     grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .site-shell.site-shell-home {
@@ -34,9 +34,10 @@
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1120px) {
   .site-shell {
-    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--toc-width);
+    grid-template-columns: var(--sidebar-width) minmax(0, var(--doc-max-width--desktop)) var(--toc-width);
+    justify-content: center;
   }
 
   .site-shell.site-shell-home {

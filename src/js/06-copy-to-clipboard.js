@@ -10,6 +10,8 @@
   // 去除代码末尾的多余空格
   var TRAILING_SPACE_RX = / +$/gm
   var config = (document.getElementById('site-script') || { dataset: {} }).dataset
+  var canUseClipboardApi = !!(window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText)
+  var feedbackTimers = new WeakMap()
 
   // 2. 查找所有相关代码块并解析
   // 遍历所有满足 .doc pre.highlight, .doc .literalblock pre 选择器的代码块。
@@ -41,9 +43,11 @@
     ;(toolbox = document.createElement('div')).className = 'source-toolbox'
     if (lang) toolbox.appendChild(lang)
     // 添加复制按钮
-    if (window.navigator.clipboard) {
+    if (canUseClipboardApi || document.queryCommandSupported('copy')) {
       ;(copy = document.createElement('button')).className = 'copy-button'
+      copy.setAttribute('type', 'button')
       copy.setAttribute('title', 'Copy to clipboard')
+      copy.setAttribute('aria-label', 'Copy code to clipboard')
       // 按钮图标可以是 SVG 图标或普通图片
       if (config.svgAs === 'svg') {
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -61,6 +65,7 @@
       }
       // 显示用户点击后提示信息 Copied!
       ;(toast = document.createElement('span')).className = 'copy-toast'
+      toast.dataset.defaultLabel = 'Copied!'
       toast.appendChild(document.createTextNode('Copied!'))
       copy.appendChild(toast)
       toolbox.appendChild(copy)
@@ -85,14 +90,61 @@
     var text = code.innerText.replace(TRAILING_SPACE_RX, '')
     // 如果是 console 命令行，预处理命令为有效的单行命令
     if (code.dataset.lang === 'console' && text.startsWith('$ ')) text = extractCommands(text)
-    // 调用 navigator.clipboard.writeText(text) 实现复制功能
-    window.navigator.clipboard.writeText(text).then(
-      function () {
-        this.classList.add('clicked')
-        this.offsetHeight // eslint-disable-line no-unused-expressions
-        this.classList.remove('clicked')
-      }.bind(this),
-      function () {}
+    var button = this
+
+    if (canUseClipboardApi) {
+      // 调用 navigator.clipboard.writeText(text) 实现复制功能
+      window.navigator.clipboard.writeText(text).then(
+        function () {
+          showCopyFeedback(button)
+        },
+        function () {
+          fallbackCopy(text, button)
+        }
+      )
+      return
+    }
+
+    fallbackCopy(text, button)
+  }
+
+  function fallbackCopy (text, button) {
+    var textarea = document.createElement('textarea')
+    textarea.value = text
+    textarea.setAttribute('readonly', '')
+    textarea.style.position = 'fixed'
+    textarea.style.top = '-9999px'
+    textarea.style.left = '-9999px'
+    document.body.appendChild(textarea)
+    textarea.select()
+    textarea.setSelectionRange(0, textarea.value.length)
+
+    try {
+      if (document.execCommand('copy')) {
+        showCopyFeedback(button)
+      } else {
+        showCopyFeedback(button, 'Copy failed')
+      }
+    } catch (err) {
+      showCopyFeedback(button, 'Copy failed')
+    } finally {
+      document.body.removeChild(textarea)
+    }
+  }
+
+  function showCopyFeedback (button, label) {
+    var timer = feedbackTimers.get(button)
+    var toast = button.querySelector('.copy-toast')
+    if (timer) window.clearTimeout(timer)
+    if (toast) toast.textContent = label || toast.dataset.defaultLabel || 'Copied!'
+    button.classList.add('clicked')
+    feedbackTimers.set(
+      button,
+      window.setTimeout(function () {
+        button.classList.remove('clicked')
+        if (toast) toast.textContent = toast.dataset.defaultLabel || 'Copied!'
+        feedbackTimers.delete(button)
+      }, 1200)
     )
   }
 })()
