@@ -1,7 +1,7 @@
 {{#if page.home}}
   {{> home-landing}}
 {{else}}
-  <article class="doc">
+  <article class="doc sl-markdown-content">
     <header class="doc-article-header" data-slot="doc-title">
       <div class="doc-article-title-row" data-slot="doc-title-header">
         {{#with page.title}}
@@ -12,6 +12,8 @@
         <p class="doc-lede" slot="doc-title-description">{{this}}</p>
       {{/with}}
     </header>
-    {{{page.contents}}}
+    <div class="doc-content">
+      {{{page.contents}}}
+    </div>
   </article>
 {{/if}}

@@ -3,6 +3,12 @@
   font-size: 1rem;
 }
 
+@media screen and (min-width: 640px) {
+  .doc * {
+    font-size: 15px;
+  }
+}
+
 .doc-article-header {
   margin-bottom: calc(var(--spacing) * 8);
 }
@@ -43,28 +49,38 @@ div[data-slot='doc-title'] {
   }
 }
 
-.doc > *:first-child {
+.doc > *:first-child,
+.doc-content > *:first-child {
   margin-top: 0;
 }
 
-.doc h2,
-.doc h3,
-.doc h4,
-.doc h5,
-.doc h6 {
+.doc :is(h1, h2, h3, h4, h5, h6) {
   color: var(--foreground);
   font-weight: 500;
   letter-spacing: var(--tracking-tight);
 }
 
 .doc h2 {
-  margin-top: 3rem;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding-top: calc(var(--spacing) * 6);
+  margin-top: calc(var(--spacing) * 12);
 }
 
 .doc h3 {
-  margin-top: 2rem;
   font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.doc h4 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.doc h5,
+.doc h6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .doc p,
@@ -88,6 +104,15 @@ div[data-slot='doc-title'] {
   text-decoration-color: var(--foreground);
 }
 
+.doc ul,
+.doc ol {
+  padding-left: 1.25rem;
+}
+
+.doc li + li {
+  margin-top: 0.25rem;
+}
+
 .doc :not(pre) > code {
   background: color-mix(in oklab, var(--muted) 70%, transparent);
   padding: 0.2rem 0.5rem;
@@ -103,6 +128,7 @@ div[data-slot='doc-title'] {
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: calc(var(--radius) + 2px);
   padding: 1rem 1.125rem;
+  line-height: 1.7;
 }
 
 .source-toolbox {
@@ -203,4 +229,27 @@ div[data-slot='doc-title'] {
 
 .doc tbody tr:nth-child(2n) {
   background: color-mix(in oklab, var(--muted) 20%, transparent);
+}
+
+.doc hr {
+  border: 0;
+  border-top: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+  margin: calc(var(--spacing) * 10) 0;
+}
+
+.doc kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  padding: 0.15rem 0.35rem;
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
 }
