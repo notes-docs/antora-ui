@@ -6,27 +6,55 @@
         <span></span>
         <span></span>
       </button>
-      <a class="site-brand" href="https://notes-docs.github.io/docs-site/">
+      <a class="site-brand" href="https://lzh06550107.github.io/">
         <img id="navbar-logo" src="{{{uiRootPath}}}/img/logo.svg" alt="{{site.title}}">
         <span class="site-brand-label">{{site.title}}</span>
       </a>
       <nav class="docs-nav-bar" aria-label="Primary">
-        <a class="docs-nav-link" href="https://notes-docs.github.io/docs-site/">Home</a>
-        <a class="docs-nav-link" href="https://notes-docs.github.io/docs-site/docs/blog/">Blog</a>
-        <a class="docs-nav-link" href="https://notes-docs.github.io/docs-site/docs/guides/getting-started/">Docs</a>
+        <a class="docs-nav-link" href="https://lzh06550107.github.io/">Home</a>
+        <a class="docs-nav-link" href="https://lzh06550107.github.io/docs/blog/">Blog</a>
+        <a class="docs-nav-link" href="https://lzh06550107.github.io/docs-site/docs/guides/getting-started/">Docs</a>
         <a class="docs-nav-link" href="https://notes-docs.github.io/docs-site/home/">Books</a>
-        <a class="docs-nav-link" href="https://notes-docs.github.io/docs-site/docs/about/">About</a>
+        <a class="docs-nav-link" href="https://lzh06550107.github.io/docs-site/docs/about/">About</a>
       </nav>
     </div>
     <div class="site-header-right">
-      <button class="search-placeholder" type="button" aria-label="Search">
-        <span>Search</span>
-        <kbd>Ctrl K</kbd>
-      </button>
+      <div class="search-shell" data-search-root>
+        <button class="search-placeholder" type="button" aria-label="Search" data-open-search>
+          <span>Search</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <div class="search-backdrop" data-close-search hidden></div>
+        <section class="search-dialog" aria-label="Search" aria-modal="true" hidden>
+          <div class="search-dialog-frame">
+            <div class="search-dialog-header">
+              <label class="search-field" for="lucode-search-input">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    fill="currentColor"
+                    d="M11.742 10.344a6 6 0 1 0-1.398 1.398l3.958 3.958 1.06-1.06-3.62-4.296Zm-5.742.656a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"
+                  ></path>
+                </svg>
+                <input
+                  id="lucode-search-input"
+                  class="search-input"
+                  type="search"
+                  placeholder="Search docs and headings"
+                  autocomplete="off"
+                  data-search-input
+                >
+              </label>
+              <button class="search-close" type="button" data-close-search>Close</button>
+            </div>
+            <div class="search-results-meta" data-search-meta>Type to search this page and navigation links.</div>
+            <div class="search-results" data-search-results></div>
+          </div>
+        </section>
+      </div>
       <div class="header-icon-group">
         <a
           class="icon-button github-link"
-          href="https://github.com/lucas-labs/lucode-starlight-theme"
+          href="https://github.com/lzh06550107"
           aria-label="GitHub"
           rel="noopener noreferrer"
           target="_blank"
@@ -45,7 +73,7 @@
           </svg>
         </a>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+      <button class="theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false" data-theme-toggle>
         <span class="theme-toggle-icon theme-light">☀</span>
         <span class="theme-toggle-icon theme-dark">☾</span>
       </button>

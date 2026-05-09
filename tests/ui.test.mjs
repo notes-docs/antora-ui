@@ -22,6 +22,7 @@ test('Lucode Antora UI source files exist', () => {
     'css/nav.css',
     'css/doc.css',
     'js/08-theme-toggle.js',
+    'js/09-search.js',
   ]
 
   for (const relativePath of expectedFiles) {
@@ -40,9 +41,15 @@ test('Lucode Antora UI templates contain the new shell markers', () => {
   const docCss = readFileSync(join(srcDir, 'css', 'doc.css'), 'utf8')
   const varsCss = readFileSync(join(srcDir, 'css', 'vars.css'), 'utf8')
   const tocCss = readFileSync(join(srcDir, 'css', 'toc.css'), 'utf8')
+  const searchJs = readFileSync(join(srcDir, 'js', '09-search.js'), 'utf8')
+  const themeJs = readFileSync(join(srcDir, 'js', '08-theme-toggle.js'), 'utf8')
+  const headerCss = readFileSync(join(srcDir, 'css', 'header.css'), 'utf8')
 
   assert.match(header, /data-theme-toggle/)
   assert.match(header, /docs-nav-bar/)
+  assert.match(header, /data-open-search/)
+  assert.match(header, /data-search-input/)
+  assert.match(header, /data-search-results/)
   assert.match(header, /Home/)
   assert.match(header, /https:\/\/notes-docs\.github\.io\/docs-site\/home\//)
   assert.match(header, /github-link/)
@@ -81,7 +88,14 @@ test('Lucode Antora UI templates contain the new shell markers', () => {
   assert.match(docCss, /font-size:\s*1\.875rem/)
   assert.match(docCss, /line-height:\s*2\.25rem/)
   assert.match(docCss, /max-width:\s*80%/)
-  assert.match(readFileSync(join(srcDir, 'css', 'header.css'), 'utf8'), /\.docs-nav-bar/)
-  assert.match(readFileSync(join(srcDir, 'css', 'header.css'), 'utf8'), /\.docs-nav-link/)
-  assert.match(readFileSync(join(srcDir, 'css', 'header.css'), 'utf8'), /\.icon-button/)
+  assert.match(headerCss, /\.docs-nav-bar/)
+  assert.match(headerCss, /\.docs-nav-link/)
+  assert.match(headerCss, /\.icon-button/)
+  assert.match(headerCss, /\.search-dialog/)
+  assert.match(headerCss, /\.search-result-item/)
+  assert.match(searchJs, /data-search-root/)
+  assert.match(searchJs, /ctrlKey/)
+  assert.match(searchJs, /ArrowDown/)
+  assert.match(themeJs, /aria-pressed/)
+  assert.match(themeJs, /lucode-theme/)
 })

@@ -1,13 +1,22 @@
 'use strict'
 
-const metadata = require('undertaker/lib/helpers/metadata')
 const { watch } = require('gulp')
+let metadata
+
+try {
+  metadata = require('undertaker/lib/helpers/metadata')
+} catch {
+  metadata = { get: () => ({ tree: {} }) }
+}
 
 module.exports = ({ name, desc, opts, call: fn, loop }) => {
   if (name) {
     const displayName = fn.displayName
     if (displayName === '<series>' || displayName === '<parallel>') {
-      metadata.get(fn).tree.label = `${displayName} ${name}`
+      const taskMetadata = metadata.get(fn)
+      if (taskMetadata && taskMetadata.tree) {
+        taskMetadata.tree.label = `${displayName} ${name}`
+      }
     }
     fn.displayName = name
   }
